@@ -36,7 +36,7 @@ const mapDispatchToProps = {
 
 const AboutNavigator = createStackNavigator(
   {
-    Home: { screen: About },
+    About: { screen: About },
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -61,7 +61,7 @@ const AboutNavigator = createStackNavigator(
 
 const ContactNavigator = createStackNavigator(
   {
-    Home: { screen: Contact },
+    Contact: { screen: Contact },
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
