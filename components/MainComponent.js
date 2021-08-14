@@ -31,6 +31,7 @@ import {
   fetchPartners,
 } from "../redux/ActionCreators";
 import NetInfo from "@react-native-community/netinfo";
+import * as MediaLibrary from "expo-media-library";
 
 const mapDispatchToProps = {
   fetchCampsites,
@@ -335,8 +336,11 @@ class Main extends Component {
     this.props.fetchComments();
     this.props.fetchPartners();
     this.props.fetchPromotions();
+    this.showNetInfo();
+  }
 
-    NetInfo.fetch().then((connectionInfo) => {
+  showNetInfo = async () => {
+    await NetInfo.fetch().then((connectionInfo) => {
       Platform.OS === "ios"
         ? Alert.alert("Initial Network Connectivity Type:", connectionInfo.type)
         : ToastAndroid.show(
@@ -348,7 +352,7 @@ class Main extends Component {
     this.unsubscribeNetInfo = NetInfo.addEventListener((connectionInfo) => {
       this.handleConnectiviyChange(connectionInfo);
     });
-  }
+  };
 
   componentWillUnmount() {
     this.unsubscribeNetInfo();
@@ -370,7 +374,7 @@ class Main extends Component {
         connectionMsg = "You are now connected to a WiFi network.";
         break;
     }
-    (Platform.OS === "ios")
+    Platform.OS === "ios"
       ? Alert.alert("Connectino change:", connectionMsg)
       : ToastAndroid.show(connectionMsg, ToastAndroid.LONG);
   };
